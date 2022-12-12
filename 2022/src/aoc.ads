@@ -9,6 +9,8 @@ package AoC is
 
    procedure Set_Input_Dir (Input : String);
 
+   function Is_Sample_Input return Boolean;
+
 private
    type String_Access is access String;
    type Positive_Access is access Positive;

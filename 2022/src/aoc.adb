@@ -22,4 +22,9 @@ package body AoC is
    begin
       Input_Dir := new String'(Input);
    end Set_Input_Dir;
+
+   function Is_Sample_Input return Boolean is
+   begin
+      return Input_Dir = null or else Input_Dir.all = "input";
+   end Is_Sample_Input;
 end AoC;
