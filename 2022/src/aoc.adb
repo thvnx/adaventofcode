@@ -1,5 +1,3 @@
-with Ada.Text_IO; use Ada.Text_IO;
-
 package body AoC is
    procedure Solve_Puzzle
      (Input  :          String;
