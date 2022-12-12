@@ -15,6 +15,7 @@ private
    type String_Access is access String;
    type Positive_Access is access Positive;
    type Natural_Access is access Natural;
+   type Integer_Access is access Integer;
 
    package Positive_IO is new Integer_IO (Positive);
    package Natural_IO is new Integer_IO (Natural);

@@ -6,7 +6,7 @@ with AoC.Ruckstack_Reorganization;
 with AoC.Camp_Cleanup;
 with AoC.Supply_Stacks;
 with AoC.Tuning_Trouble;
-
+with Aoc.No_Space_Left_On_Device;
 
 
 with AoC.Cathode_Ray_Tube;
@@ -36,6 +36,9 @@ begin
 
    --  Day 6: Tuning Trouble
    Aoc.Tuning_Trouble.Solve ("6");
+
+   --  Day 7: No Space Left On Device
+   AoC.No_Space_Left_On_Device.Solve ("7");
 
    --  Day 10: Cathode-Ray Tube
    AoC.Cathode_Ray_Tube.Solve ("10");
