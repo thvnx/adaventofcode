@@ -7,7 +7,7 @@ with AoC.Camp_Cleanup;
 with AoC.Supply_Stacks;
 with AoC.Tuning_Trouble;
 with Aoc.No_Space_Left_On_Device;
-
+with AoC.Treetop_Tree_House;
 
 with AoC.Cathode_Ray_Tube;
 with AoC.Monkey_In_The_Middle;
@@ -39,6 +39,9 @@ begin
 
    --  Day 7: No Space Left On Device
    AoC.No_Space_Left_On_Device.Solve ("7");
+
+   --  Day 8: Treetop Tree House
+   AoC.Treetop_Tree_House.Solve ("8");
 
    --  Day 10: Cathode-Ray Tube
    AoC.Cathode_Ray_Tube.Solve ("10");
