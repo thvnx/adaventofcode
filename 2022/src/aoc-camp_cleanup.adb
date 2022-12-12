@@ -1,8 +1,7 @@
-with Ada.Text_IO; use Ada.Text_IO;
+package body AoC.Camp_Cleanup is
 
-procedure Part1 is
-   F   : File_Type;
    Acc : Natural := 0;
+   Part_1 : Boolean := True;
 
    function Process_IDs (IDs : String) return Boolean is
       First, Last : Positive;
@@ -29,21 +28,30 @@ procedure Part1 is
       end loop;
       Elf2Max := Natural'Value (IDs (First + 1 .. IDs'Last));
 
-      return (Elf1Min <= Elf2Min and Elf1Max >= Elf2Max) or
-               (Elf2Min <= Elf1Min and Elf2Max >= Elf1Max);
+      if Part_1 then
+         return (Elf1Min <= Elf2Min and Elf1Max >= Elf2Max) or
+                 (Elf2Min <= Elf1Min and Elf2Max >= Elf1Max);
+      else
+         return not (Elf1Max < Elf2Min or Elf2Max < Elf1Min);
+      end if;
    end Process_IDs;
 
-begin
-   Open (F, In_File, "input");
-   while not End_Of_File (F) loop
-      declare
-         Line : constant String := Get_Line (F);
-      begin
-         if Process_IDs (Line) then
-            Acc := Acc + 1;
-         end if;
-      end;
-   end loop;
-   Close (F);
-   Put_Line (Acc'Image);
-end Part1;
+   procedure Process_Line (Line : String) is
+   begin
+      if Process_IDs (Line) then
+         Acc := Acc + 1;
+      end if;
+   end Process_Line;
+
+   procedure Solve (Input : String) is
+   begin
+      Solve_Puzzle (Input, Process_Line'Access);
+      Put_Line ("Day 4.1:" & Acc'Image);
+
+      Part_1 := False;
+      Acc := 0;
+      Solve_Puzzle (Input, Process_Line'Access);
+      Put_Line ("Day 4.2:" & Acc'Image);
+   end Solve;
+
+end AoC.Camp_Cleanup;

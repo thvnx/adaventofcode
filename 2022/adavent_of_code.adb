@@ -4,6 +4,7 @@ with AoC.Calorie_Counting;
 with AoC.Monkey_In_The_Middle;
 with AoC.Rock_Paper_Scissors;
 with AoC.Ruckstack_Reorganization;
+with AoC.Camp_Cleanup;
 
 procedure Adavent_Of_Code is
 begin
@@ -19,6 +20,9 @@ begin
 
    --  Day 3: Ruckstack Reorganization
    Aoc.Ruckstack_Reorganization.Solve ("3");
+
+   --  Day 4: Camp Cleanup
+   Aoc.Camp_Cleanup.Solve ("4");
 
    --  Day 11: Monkey in the Middle
    AoC.Monkey_In_The_Middle.Solve ("11");
