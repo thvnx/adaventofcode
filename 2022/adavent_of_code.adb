@@ -5,7 +5,7 @@ with AoC.Rock_Paper_Scissors;
 with AoC.Ruckstack_Reorganization;
 with AoC.Camp_Cleanup;
 
-
+with AoC.Tuning_Trouble;
 
 
 
@@ -29,6 +29,9 @@ begin
 
    --  Day 4: Camp Cleanup
    Aoc.Camp_Cleanup.Solve ("4");
+
+   --  Day 6: Tuning Trouble
+   Aoc.Tuning_Trouble.Solve ("6");
 
    --  Day 10: Cathode-Ray Tube
    AoC.Cathode_Ray_Tube.Solve ("10");
