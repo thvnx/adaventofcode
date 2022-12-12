@@ -17,14 +17,14 @@ package body AoC.Cathode_Ray_Tube is
          CRT_Pos := CRT_Pos + 1;
       end Draw_Pixel;
    begin
-      if Line (Line'First .. 4) = "noop" then
+      if Line (Line'First .. Line'First + 3) = "noop" then
             if Cycle + 1 > Signal_Cycle then
                Signal_Strengh := Signal_Strengh + (Signal_Cycle * X);
                Signal_Cycle := Signal_Cycle + 40;
             end if;
             Draw_Pixel;
             Cycle := Cycle + 1;
-         elsif Line (Line'First .. 4) = "addx" then
+         elsif Line (Line'First .. Line'First + 3) = "addx" then
             if Cycle + 2 > Signal_Cycle then
                Signal_Strengh := Signal_Strengh + (Signal_Cycle * X);
                Signal_Cycle := Signal_Cycle + 40;
@@ -32,7 +32,7 @@ package body AoC.Cathode_Ray_Tube is
             Draw_Pixel;
             Draw_Pixel;
             Cycle := Cycle + 2;
-            X := X + Integer'Value (Line (6 .. Line'Last));
+            X := X + Integer'Value (Line (Line'First + 5 .. Line'Last));
          else
             raise Constraint_Error;
       end if;

@@ -65,7 +65,7 @@ package body AoC.Supply_Stacks is
 
    procedure Process_Line (Line : String) is
    begin
-      if Line'Last >= 4 and then Line (1 .. 4) = "move" then
+      if Line'Last >= 4 and then Line (Line'First .. Line'First + 3) = "move" then
          Move_Crane (Line, Dock);
       end if;
    end Process_Line;
