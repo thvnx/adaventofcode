@@ -2,6 +2,7 @@ with Ada.Command_Line; use Ada.Command_Line;
 
 with AoC.Calorie_Counting;
 with AoC.Monkey_In_The_Middle;
+with AoC.Rock_Paper_Scissors;
 
 procedure Adavent_Of_Code is
 begin
@@ -11,6 +12,9 @@ begin
 
    --  Day 1: Calorie Counting
    AoC.Calorie_Counting.Solve ("1");
+
+   --  Day 2: Rock Paper Scissors
+   Aoc.Rock_Paper_Scissors.Solve ("2");
 
    --  Day 11: Monkey in the Middle
    AoC.Monkey_In_The_Middle.Solve ("11");
