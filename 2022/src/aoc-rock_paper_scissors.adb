@@ -7,8 +7,8 @@ package body AoC.Rock_Paper_Scissors is
    for Score use (Lost => 0, Draw => 3, Won => 6);
 
    function PlayRound (Opponent, Me : Character) return Natural is
-      OpPos : Natural := Character'Pos(Opponent) - Character'Pos('A');
-      MePos : Natural := Character'Pos(Me) - Character'Pos('X');
+      OpPos : constant Natural := Character'Pos(Opponent) - Character'Pos('A');
+      MePos : constant Natural := Character'Pos(Me) - Character'Pos('X');
 
       Result : Integer;
       Round : Score;
@@ -68,13 +68,13 @@ package body AoC.Rock_Paper_Scissors is
    procedure Process_Line (Line : String) is
    begin
       --Put_Line (Line);
-      Acc := Acc + PlayRound (Line (1), Line (3));
+      Acc := Acc + PlayRound (Line (Line'First), Line (Line'First + 2));
    end Process_Line;
 
    procedure Process_Line2 (Line : String) is
    begin
       --Put_Line (Line);
-      Acc := Acc + PlayRound2 (Line (1), Line (3));
+      Acc := Acc + PlayRound2 (Line (Line'First), Line (Line'First + 2));
    end Process_Line2;
 
    procedure Solve (Input : String) is
