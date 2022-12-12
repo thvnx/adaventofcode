@@ -1,7 +1,6 @@
-with Ada.Text_IO; use Ada.Text_IO;
+package body AoC.Rope_Bridge is
 
-procedure Part2 is
-   type Natural_Access is access Natural;
+   Part_1 : Boolean := True;
 
    type Position;
    type Position_Access is access Position;
@@ -13,9 +12,6 @@ procedure Part2 is
 
    type Rope is array (1 .. 10) of Position_Access;
    R : Rope;
-
-
-   package Pos_IO is new Integer_IO (Positive); use Pos_IO;
 
    Zero  : constant Natural_Access  := new Natural'(0);
    Start : constant Position_Access :=
@@ -214,7 +210,7 @@ procedure Part2 is
          R (I) := Tail;
          --Print_Grid (Start, R);
       end loop;
-      Increment_Visite_Count (R (10));
+      Increment_Visite_Count (R (if Part_1 then 2 else 10));
    end Move_Rope;
 
    procedure Process_Line
@@ -224,7 +220,7 @@ procedure Part2 is
       Direction   : constant Character := Line (Line'First);
       Steps, Last : Positive;
    begin
-      Get (Line (Line'First + 2 .. Line'Last), Steps, Last);
+      Positive_IO.Get (Line (Line'First + 2 .. Line'Last), Steps, Last);
       --  Put_Line (Direction & Steps'Image);
       Adjust_Grid (R (1), Direction, Steps);
       loop
@@ -252,6 +248,7 @@ procedure Part2 is
       end loop;
       Put_Line (Lenght'Image & " * " & Height'Image);
    end Grid_Size;
+   pragma Unreferenced (Grid_Size);
 
 
    procedure Print_Grid (Start : Position_Access; R : Rope) is
@@ -311,6 +308,7 @@ procedure Part2 is
          Temp := Temp.Down;
       end loop;
    end Print_Grid;
+   pragma Unreferenced (Print_Grid);
 
 
    procedure Count_Visited_Places (Start : Position_Access) is
@@ -339,26 +337,37 @@ procedure Part2 is
          exit when Temp.Down = null;
          Temp := Temp.Down;
       end loop;
-      Put_Line (Acc'Image);
+      Put_Line ("Day 9" & (if Part_1 then ".1" else ".2") & ":" & Acc'Image);
    end Count_Visited_Places;
 
 
-   F : File_Type;
-begin
-   R := (Start, Start, Start, Start, Start, Start, Start, Start, Start, Start);
-   Increment_Visite_Count (Start);
+   procedure Process_Line (Line : String) is
+   begin
+      --  Grid_Size (Start);
+      Process_Line (Line, R);
+      -- Put_Line (R'Image);
+   end Process_Line;
 
-   Open (F, In_File, "input");
-   while not End_Of_File (F) loop
-      declare
-         Line : constant String := Get_Line (F);
-      begin
-         --  Grid_Size (Start);
-         Process_Line (Line, R);
-         -- Put_Line (R'Image);
-      end;
-   end loop;
-   Close (F);
-   Print_Grid (Start, R);
-   Count_Visited_Places (Start);
-end Part2;
+   procedure Solve (Input : String) is
+   begin
+      R := [Start, Start, Start, Start, Start, Start, Start, Start, Start, Start];
+      Increment_Visite_Count (Start);
+      Solve_Puzzle (Input & ".1", Process_Line'Access);
+      --Print_Grid (Start, R);
+      Count_Visited_Places (Start);
+
+      Part_1 := False;
+      Start.Up := null;
+      Start.Down := null;
+      Start.Left := null;
+      Start.Right := null;
+
+      -- TODO: do it in one pass!
+      R := [Start, Start, Start, Start, Start, Start, Start, Start, Start, Start];
+      Increment_Visite_Count (Start);
+      Solve_Puzzle (Input & ".2", Process_Line'Access);
+      --Print_Grid (Start, R);
+      Count_Visited_Places (Start);
+   end Solve;
+
+end AoC.Rope_Bridge;
