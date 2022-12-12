@@ -9,7 +9,7 @@ with AoC.Camp_Cleanup;
 
 
 
-
+with AoC.Cathode_Ray_Tube;
 with AoC.Monkey_In_The_Middle;
 
 procedure Adavent_Of_Code is
@@ -29,6 +29,9 @@ begin
 
    --  Day 4: Camp Cleanup
    Aoc.Camp_Cleanup.Solve ("4");
+
+   --  Day 10: Cathode-Ray Tube
+   AoC.Cathode_Ray_Tube.Solve ("10");
 
    --  Day 11: Monkey in the Middle
    AoC.Monkey_In_The_Middle.Solve ("11");
