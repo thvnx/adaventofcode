@@ -2,6 +2,8 @@ with Ada.Containers.Vectors;
 
 package body AoC.Hill_Climbing_Algorithm is
 
+   Part_1 : Boolean := True;
+
    subtype Height_Type is Character range 'a' .. 'z';
 
    type Node;
@@ -41,8 +43,14 @@ package body AoC.Hill_Climbing_Algorithm is
          case C is
          when 'S' =>
             S := Temp;
-            S.Distance := new Natural'(0);
-         when 'E' => E := Temp;
+            if Part_1 then
+               S.Distance := new Natural'(0);
+            end if;
+         when 'E' => 
+            E := Temp;
+            if not Part_1 then
+               E.Distance := new Natural'(0);
+            end if;
          when others => null;
          end case;
       end loop;
@@ -187,7 +195,8 @@ package body AoC.Hill_Climbing_Algorithm is
       begin
          if M /= null and then M.Dijkstraed.all /= True then
             declare
-               Weight : constant Integer := Height_Type'Pos(M.Height) - Height_Type'Pos(N.Height) + 1;
+               Weight : constant Integer := (if Part_1 then Height_Type'Pos(M.Height) - Height_Type'Pos(N.Height) + 1
+                                                       else Height_Type'Pos(N.Height) - Height_Type'Pos(M.Height) + 1);
             begin
                if Weight <= 2 then
                   if M.Distance = null or else
@@ -217,7 +226,7 @@ package body AoC.Hill_Climbing_Algorithm is
          Update_Distance (N, N.Down);
 
          N.Dijkstraed := new Boolean'(True);
-         exit when N = E;
+         exit when Part_1 and then N = E;
 
          Q.Delete_First;
          exit when Q.Is_Empty;
@@ -238,13 +247,54 @@ package body AoC.Hill_Climbing_Algorithm is
       return Steps;
    end Compute_Steps;
 
+   pragma Unreferenced (Print_Map, Print_Map_Symbols);
+
    procedure Solve (Input : String) is
+      Min, T : Natural;
    begin
       Solve_Puzzle (Input, Process_Line'Access);
       --Print_Map (S);
       Dijkstra (S);
-      Put_Line ("Day 12.1:" & Compute_Steps (S, E)'Image);
+      Min := Compute_Steps (S, E);
+      Put_Line ("Day 12.1:" & Min'Image);
       --Print_Map_Symbols (S);
+
+
+      --  Start from E from Part 2
+      Part_1 := False;
+      Temp := null;
+      S := null;
+      E := null;
+      Solve_Puzzle (Input, Process_Line'Access);
+      Dijkstra (E);
+
+      Temp := E;
+         while Temp.Left /= null loop
+            Temp := Temp.Left;
+         end loop;
+         while Temp.Up /= null loop
+            Temp := Temp.Up;
+         end loop;
+
+         loop
+            loop
+               if Temp.Height = 'a' then
+                  T := Compute_Steps (E, Temp);
+                  if T /= 0 and then T < Min then
+                     Min := T;
+                  end if;
+               end if;
+               exit when Temp.Right = null;
+               Temp := Temp.Right;
+            end loop;
+            while Temp.Left /= null loop
+               Temp := Temp.Left;
+            end loop;
+            exit when Temp.Down = null;
+            Temp := Temp.Down;
+         end loop;
+
+   Put_Line ("Day 12.2:" & Min'Image);
    end Solve;
 
 end AoC.Hill_Climbing_Algorithm;
