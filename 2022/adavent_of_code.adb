@@ -11,6 +11,7 @@ with AoC.Treetop_Tree_House;
 with AoC.Rope_Bridge;
 with AoC.Cathode_Ray_Tube;
 with AoC.Monkey_In_The_Middle;
+with AoC.Hill_Climbing_Algorithm;
 
 procedure Adavent_Of_Code is
 begin
@@ -51,4 +52,7 @@ begin
 
    --  Day 11: Monkey in the Middle
    AoC.Monkey_In_The_Middle.Solve ("11");
+
+   --  Day 12: Hill Climbing Algorithm
+   AoC.Hill_Climbing_Algorithm.Solve ("12");
 end Adavent_Of_Code;
