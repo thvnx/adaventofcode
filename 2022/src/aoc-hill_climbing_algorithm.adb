@@ -217,6 +217,7 @@ package body AoC.Hill_Climbing_Algorithm is
          Update_Distance (N, N.Down);
 
          N.Dijkstraed := new Boolean'(True);
+         exit when N = E;
 
          Q.Delete_First;
          exit when Q.Is_Empty;
