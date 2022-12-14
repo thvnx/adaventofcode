@@ -71,7 +71,7 @@ package body AoC.Distress_Signal is
    end Build_List;
 
    function "<" (Left, Right : Packet_Access) return Boolean is
-      C, Done : Boolean := False;
+      Done : Boolean := False;
 
       function Compare (Left, Right : Packet_Access) return Boolean is
          B : Boolean := True;
@@ -80,7 +80,7 @@ package body AoC.Distress_Signal is
 
          if Left.Kind /= Right.Kind then
             declare
-               P : Packet_Access := new Packet'(List, Packet_Vectors.Empty_Vector);
+               P : constant Packet_Access := new Packet'(List, Packet_Vectors.Empty_Vector);
             begin
                if Left.Kind = Number and then Right.Kind = List then
                   P.Packet_List.Append (Left);
@@ -95,10 +95,8 @@ package body AoC.Distress_Signal is
                --Put_Line ("- Compare" & Left.Value'Image & " vs" & Right.Value'Image);
                if Left.Value > Right.Value then
                   B := False;
-                  C := True;
                   Done := True;
                elsif Left.Value < Right.Value then
-                  C := True;
                   Done := True;
                end if;
             else
@@ -123,6 +121,8 @@ package body AoC.Distress_Signal is
       return Compare (Left, Right);
    end "<";
 
+   package Packet_Sorter is new Packet_Vectors.Generic_Sorting;
+
    function Analyse_Pair (Left, Right : Packet_Access) return Boolean is
    begin
       if Left < Right then
@@ -133,6 +133,8 @@ package body AoC.Distress_Signal is
          return False;
       end if;
    end Analyse_Pair;
+
+   Part_2 : Packet_Vectors.Vector;
 
    procedure Process_Line (Line : String) is
    begin
@@ -153,16 +155,41 @@ package body AoC.Distress_Signal is
       else
          --Print_Packet (P.Left); Put_Line ("");
 
+         Part_2.Append (P.Left);
+         Part_2.Append (P.Right);
          P.Left := null;
          P.Right := null;
       end if;
    end Process_Line;
 
+   pragma Unreferenced (Print_Packet);
+
    procedure Solve (Input : String) is
+      Divider_1, Divider_2 : Packet_Access;
+      D1, D2 : Natural;
    begin
       Solve_Puzzle (Input, Process_Line'Access);
+               Part_2.Append (P.Left);
+         Part_2.Append (P.Right);
 
       Put_Line ("Day 13.1:" & Index_Sum'Image);
+
+      Divider_1 := Build_List ("[[2]]");
+      Divider_2 := Build_List ("[[6]]");
+
+      Part_2.Append (Divider_1);
+      Part_2.Append (Divider_2);
+      Packet_Sorter.Sort (Part_2);
+      for I in Part_2.First_Index .. Part_2.Last_Index loop
+         if Part_2 (I) = Divider_1 then
+            D1 := I;
+         elsif Part_2 (I) = Divider_2 then
+            D2 := I;
+         end if;
+         --Print_Packet (Part_2 (I)); Put_Line ("");
+      end loop;
+      D1 := D1 * D2;
+      Put_Line ("Day 13.2:" & D1'Image);
    end Solve;
 
 end AoC.Distress_Signal;
