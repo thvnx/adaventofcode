@@ -12,6 +12,7 @@ with AoC.Rope_Bridge;
 with AoC.Cathode_Ray_Tube;
 with AoC.Monkey_In_The_Middle;
 with AoC.Hill_Climbing_Algorithm;
+with AoC.Distress_Signal;
 
 procedure Adavent_Of_Code is
 begin
@@ -55,4 +56,7 @@ begin
 
    --  Day 12: Hill Climbing Algorithm
    AoC.Hill_Climbing_Algorithm.Solve ("12");
+
+   --  Day 13: Distress Signal
+   AoC.Distress_Signal.Solve ("13");
 end Adavent_Of_Code;
