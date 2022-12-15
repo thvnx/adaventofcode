@@ -13,6 +13,7 @@ with AoC.Cathode_Ray_Tube;
 with AoC.Monkey_In_The_Middle;
 with AoC.Hill_Climbing_Algorithm;
 with AoC.Distress_Signal;
+with AoC.Regolith_Reservoir;
 
 procedure Adavent_Of_Code is
 begin
@@ -59,4 +60,7 @@ begin
 
    --  Day 13: Distress Signal
    AoC.Distress_Signal.Solve ("13");
+
+   --  Day 14: Regolith Reservoir
+   AoC.Regolith_Reservoir.Solve ("14");
 end Adavent_Of_Code;
