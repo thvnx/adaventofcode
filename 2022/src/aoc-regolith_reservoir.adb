@@ -1,5 +1,7 @@
 package body AoC.Regolith_Reservoir is
 
+   Part_1 : Boolean := True;
+
    type Cave;
 
    type Cave_Point is (Air, Sand, Rock);
@@ -165,6 +167,7 @@ package body AoC.Regolith_Reservoir is
 
       function One_Step (CA : Cave_Access) return Cave_Access is
       begin
+         if Part_1 then
          if CA.Down = null then
             return null;
          else
@@ -190,6 +193,27 @@ package body AoC.Regolith_Reservoir is
                end if;
             end if;
          end if;
+         else
+            if CA.Down.Kind.all = Air then
+               return CA.Down;
+            else
+               if CA.Left = null then
+                  Add_Rock_Line (X_Min - 1, Y_Max, X_Min, Y_Max);
+               end if;
+               if CA.Left.Down.Kind.all = Air then
+                  return CA.Left.Down;
+               else
+                  if CA.Right = null then
+                     Add_Rock_Line (X_Max, Y_Max, X_Max + 1, Y_Max);
+                  end if;
+                  if CA.Right.Down.Kind.all = Air then
+                     return CA.Right.Down;
+                  else
+                     return CA;
+                  end if;
+               end if;
+            end if;
+         end if;
       end One_Step;
    begin
       loop
@@ -198,7 +222,7 @@ package body AoC.Regolith_Reservoir is
          Cursor := T;
       end loop;
 
-      if T = null then
+      if (if Part_1 then T = null else T = Sand_Source) then
          return False;
       else
          Cursor.Kind := new Cave_Point'(Sand);
@@ -257,6 +281,15 @@ package body AoC.Regolith_Reservoir is
 
       --Print_Cave;
       Put_Line ("Day 14.1:" & I'Image);
+
+      Add_Rock_Line (X_Min, Y_Max + 2, X_Max, Y_Max + 2);
+      Part_1 := False;
+      while Add_One_Sand_Unit loop
+         I := I + 1;
+      end loop;
+      I := I + 1;
+      --Print_Cave;
+      Put_Line ("Day 14.2:" & I'Image);
    end Solve;
 
 end AoC.Regolith_Reservoir;
