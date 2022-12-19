@@ -15,7 +15,7 @@ package body AoC.Regolith_Reservoir is
       Up, Down, Left, Right : Cave_Access;
    end record;
 
-   Sand_Source : Cave_Access := new Cave'(500, 0, null, null, null, null, null);
+   Sand_Source : constant Cave_Access := new Cave'(500, 0, null, null, null, null, null);
    X_Min : Natural := Sand_Source.X;
    X_Max : Natural := X_Min;
    Y_Max : Natural := Sand_Source.Y;
@@ -52,6 +52,7 @@ package body AoC.Regolith_Reservoir is
       end loop;
       Put_Line ("");
    end Print_Cave;
+   pragma Unreferenced(Print_Cave);
 
    procedure Adjust_Cave (X1, Y1, X2, Y2 : Natural) is
       X_Min : constant Natural := (if X1 < X2 then X1 else X2);
@@ -232,7 +233,7 @@ package body AoC.Regolith_Reservoir is
 
    X, Y, Z, T : Natural;
    procedure Process_Line (Line : String) is
-      Coor, Last, C : Natural;
+      Coor, Last, C : Natural := 0;
    begin
       --Put_Line (Line);
 
