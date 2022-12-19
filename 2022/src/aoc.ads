@@ -20,6 +20,7 @@ private
 
    package Positive_IO is new Integer_IO (Positive);
    package Natural_IO is new Integer_IO (Natural);
+   package I_IO is new Integer_IO (Integer);
    package LLI_IO is new Integer_IO (Long_Long_Integer);
 
    Input_Dir : String_Access := null;

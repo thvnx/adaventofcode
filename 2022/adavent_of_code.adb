@@ -14,6 +14,7 @@ with AoC.Monkey_In_The_Middle;
 with AoC.Hill_Climbing_Algorithm;
 with AoC.Distress_Signal;
 with AoC.Regolith_Reservoir;
+with AoC.Beacon_Exclusion_Zone;
 
 procedure Adavent_Of_Code is
 begin
@@ -63,4 +64,7 @@ begin
 
    --  Day 14: Regolith Reservoir
    AoC.Regolith_Reservoir.Solve ("14");
+
+   --  Day 15: Beacon Exclusion Zone
+   AoC.Beacon_Exclusion_Zone.Solve ("15");
 end Adavent_Of_Code;
